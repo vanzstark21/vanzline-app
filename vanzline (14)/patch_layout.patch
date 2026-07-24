@@ -1,0 +1,34 @@
+--- src/components/Layout.tsx
++++ src/components/Layout.tsx
+@@ -1,7 +1,8 @@
+-import { Outlet, NavLink } from 'react-router-dom';
++import { Outlet, NavLink, useLocation } from 'react-router-dom';
+ import { useStore, THEMES } from '../store/useStore';
+ import { cn } from '../lib/utils';
+ import { Menu, LayoutDashboard, BarChart3, CalendarDays, Package, Users, Settings, ChevronLeft, ChevronRight } from 'lucide-react';
++import { Dashboard } from '../pages/Dashboard';
+ 
+ export function Sidebar() {
+   const { logo, theme, isSidebarOpen, setSidebarOpen, appName } = useStore();
+@@ -71,11 +72,15 @@
+ 
+ export function Layout() {
+   const { isSidebarOpen, setSidebarOpen } = useStore();
++  const location = useLocation();
++  const isDashboard = location.pathname === '/';
++
+   return (
+     <div className="app">
+       <button className="mobile-toggle" onClick={() => setSidebarOpen(!isSidebarOpen)}>
+         <Menu className="w-5 h-5 text-gray-700" />
+       </button>
+       <Sidebar />
+       <main className="main">
++        <div style={{ display: isDashboard ? 'block' : 'none' }}>
++          <Dashboard />
++        </div>
+         <Outlet />
+       </main>
+     </div>
+   );
+ }

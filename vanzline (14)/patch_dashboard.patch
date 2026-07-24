@@ -1,0 +1,129 @@
+--- src/pages/Dashboard.tsx
++++ src/pages/Dashboard.tsx
+@@ -294,62 +294,36 @@
+         </div>
+       </div>
+ 
+-      <div className="grid-3" style={{gridTemplateColumns:'5fr 4fr 3fr',marginBottom:24}}>
+-        <div className="card" style={{position:'relative',overflow:'hidden',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:'30px 20px'}}>
+-          <div className="logo-3d-wrap" style={{width:200,height:200}}>
+-            <div className="logo-halo"></div>
+-            <div 
+-              className="logo-3d" 
+-              ref={logoRef}
+-              style={{transform: `rotateX(${rotation.rx}deg) rotateY(${rotation.ry}deg)`, cursor: dragging ? 'grabbing' : 'grab'}}
+-              onMouseDown={handleMouseDown}
+-            >
+-              <div className="logo-3d-plate"></div>
+-              <div className="logo-3d-glow"></div>
+-              <img src={logo || '/vanzline-logo.png'} alt="Vanzline" 
+-                onError={(e) => { (e.target as HTMLImageElement).src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23ecfeff' stroke='%2338bdf8' stroke-width='3'/><text x='50' y='60' text-anchor='middle' font-size='32' fill='%230e7490' font-weight='900'>V</text></svg>"; }} 
+-              />
+-              <div className="logo-3d-reflection">
+-                <img src={logo || '/vanzline-logo.png'} alt="" 
+-                  onError={(e) => { (e.target as HTMLImageElement).src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23ecfeff' stroke='%2338bdf8' stroke-width='3'/><text x='50' y='60' text-anchor='middle' font-size='32' fill='%230e7490' font-weight='900'>V</text></svg>"; }} 
+-                />
+-              </div>
+-            </div>
+-          </div>
+-          <div style={{textAlign:'center',marginTop:16}}>
+-            <div style={{fontSize:20,fontWeight:900,letterSpacing:'-0.02em'}}><span className="v-grad-text">Vanz</span><span style={{color:'#1e293b'}}>line</span></div>
+-            <div style={{fontSize:10,fontWeight:700,letterSpacing:'0.25em',textTransform:'uppercase'}} className="v-text">Track your plan, follow the line</div>
+-          </div>
+-        </div>
+-
+-        <div className="weather-card" style={{display:'flex',flexDirection:'column',color:'#fff'}}>
+-          {weather ? (
+-            <div style={{position:'relative',zIndex:1}}>
+-              <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start'}}>
+-                <div>
+-                  <div style={{fontSize:10,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.2em',opacity:0.8}}>Cuaca Hari Ini</div>
+-                  <div style={{fontSize:12,fontWeight:600,opacity:0.9}}>📍 {locationName}</div>
+-                </div>
+-                <div className="w-emoji">{getEmoji(weather.weather_code, weather.is_day === 1)}</div>
+-              </div>
+-              <div style={{marginTop:12,display:'flex',alignItems:'baseline',gap:8}}>
+-                <div className="w-temp">{Math.round(weather.temperature_2m)}&deg;</div>
+-                <div className="w-desc">{getDesc(weather.weather_code, weather.is_day === 1)}</div>
+-              </div>
+-              <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8,marginTop:16}}>
+-                <div className="w-stat"><div className="lbl">Terasa</div><div className="val">{Math.round(weather.apparent_temperature)}&deg;</div></div>
+-                <div className="w-stat"><div className="lbl">Lembab</div><div className="val">{weather.relative_humidity_2m}%</div></div>
+-                <div className="w-stat"><div className="lbl">Angin</div><div className="val">{Math.round(weather.wind_speed_10m)} km/h</div></div>
+-              </div>
+-            </div>
+-          ) : (
+-            <div style={{display:'grid',placeItems:'center',height:'100%'}}>
+-              <div className="animate-spin" style={{width:28,height:28,border:'3px solid rgba(255,255,255,0.3)',borderTopColor:'#fff',borderRadius:'50%'}}></div>
+-              <div style={{fontSize:11,marginTop:8,opacity:0.7}}>Memuat cuaca...</div>
+-            </div>
+-          )}
+-        </div>
+-
+-        <div className="card" style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
++      <div style={{ display: 'grid', gridTemplateColumns: '7fr 5fr', gap: '24px', marginBottom: 24 }}>
++        <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
++          <div className="card" style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 400 }}>
++            <div className="flex-between mb-4"><h3>YouTube Player</h3></div>
++            <YoutubeWidget />
++          </div>
++          <div className="weather-card" style={{display:'flex',flexDirection:'column',color:'#fff'}}>
++            {weather ? (
++              <div style={{position:'relative',zIndex:1}}>
++                <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start'}}>
++                  <div>
++                    <div style={{fontSize:10,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.2em',opacity:0.8}}>Cuaca Hari Ini</div>
++                    <div style={{fontSize:12,fontWeight:600,opacity:0.9}}>📍 {locationName}</div>
++                  </div>
++                  <div className="w-emoji">{getEmoji(weather.weather_code, weather.is_day === 1)}</div>
++                </div>
++                <div style={{marginTop:12,display:'flex',alignItems:'baseline',gap:8}}>
++                  <div className="w-temp">{Math.round(weather.temperature_2m)}&deg;</div>
++                  <div className="w-desc">{getDesc(weather.weather_code, weather.is_day === 1)}</div>
++                </div>
++                <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8,marginTop:16}}>
++                  <div className="w-stat"><div className="lbl">Terasa</div><div className="val">{Math.round(weather.apparent_temperature)}&deg;</div></div>
++                  <div className="w-stat"><div className="lbl">Lembab</div><div className="val">{weather.relative_humidity_2m}%</div></div>
++                  <div className="w-stat"><div className="lbl">Angin</div><div className="val">{Math.round(weather.wind_speed_10m)} km/h</div></div>
++                </div>
++              </div>
++            ) : (
++              <div style={{display:'grid',placeItems:'center',height:'100%'}}>
++                <div className="animate-spin" style={{width:28,height:28,border:'3px solid rgba(255,255,255,0.3)',borderTopColor:'#fff',borderRadius:'50%'}}></div>
++                <div style={{fontSize:11,marginTop:8,opacity:0.7}}>Memuat cuaca...</div>
++              </div>
++            )}
++          </div>
++        </div>
++        
++        <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
++          <div className="card" style={{position:'relative',overflow:'hidden',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:'30px 20px'}}>
++            <div className="logo-3d-wrap" style={{width:200,height:200}}>
++              <div className="logo-halo"></div>
++              <div 
++                className="logo-3d" 
++                ref={logoRef}
++                style={{transform: `rotateX(${rotation.rx}deg) rotateY(${rotation.ry}deg)`, cursor: dragging ? 'grabbing' : 'grab'}}
++                onMouseDown={handleMouseDown}
++              >
++                <div className="logo-3d-plate"></div>
++                <div className="logo-3d-glow"></div>
++                <img src={logo || '/vanzline-logo.png'} alt="Vanzline" 
++                  onError={(e) => { (e.target as HTMLImageElement).src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23ecfeff' stroke='%2338bdf8' stroke-width='3'/><text x='50' y='60' text-anchor='middle' font-size='32' fill='%230e7490' font-weight='900'>V</text></svg>"; }} 
++                />
++                <div className="logo-3d-reflection">
++                  <img src={logo || '/vanzline-logo.png'} alt="" 
++                    onError={(e) => { (e.target as HTMLImageElement).src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23ecfeff' stroke='%2338bdf8' stroke-width='3'/><text x='50' y='60' text-anchor='middle' font-size='32' fill='%230e7490' font-weight='900'>V</text></svg>"; }} 
++                  />
++                </div>
++              </div>
++            </div>
++            <div style={{textAlign:'center',marginTop:16}}>
++              <div style={{fontSize:20,fontWeight:900,letterSpacing:'-0.02em'}}><span className="v-grad-text">Vanz</span><span style={{color:'#1e293b'}}>line</span></div>
++              <div style={{fontSize:10,fontWeight:700,letterSpacing:'0.25em',textTransform:'uppercase'}} className="v-text">Track your plan, follow the line</div>
++            </div>
++          </div>
++          <div className="card" style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',flex:1}}>
+           <div className="clock-wrap">
+              <svg className="clock-svg" viewBox="0 0 200 200">
+                <defs>

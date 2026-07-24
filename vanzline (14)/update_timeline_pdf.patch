@@ -1,0 +1,8 @@
+--- src/pages/Timeline.tsx
++++ src/pages/Timeline.tsx
+@@ -7,7 +7,7 @@
+ export function Timeline() {
+-  const { tasks, setTasks } = useStore();
++  const { tasks, setTasks, progress } = useStore();
+   const [filter, setFilter] = useState('');
+   const [isModalOpen, setModalOpen] = useState(false);
